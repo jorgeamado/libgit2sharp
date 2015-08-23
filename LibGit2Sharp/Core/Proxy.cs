@@ -52,43 +52,43 @@ namespace LibGit2Sharp.Core
             string indent = new string(' ', level * 4);
             sb.AppendFormat("{0}{1}", indent, ex.Message);
 
-            if (ex is AggregateException)
-            {
-                AggregateException aggregateException = ((AggregateException)ex).Flatten();
-
-                if (aggregateException.InnerExceptions.Count == 1)
-                {
-                    sb.AppendLine();
-                    sb.AppendLine();
-
-                    sb.AppendFormat("{0}Contained Exception:{1}", indent, Environment.NewLine);
-                    BuildErrorMessageFromException(sb, level + 1, aggregateException.InnerException);
-                }
-                else
-                {
-                    sb.AppendLine();
-                    sb.AppendLine();
-
-                    sb.AppendFormat("{0}Contained Exceptions:{1}", indent, Environment.NewLine);
-                    for (int i = 0; i < aggregateException.InnerExceptions.Count; i++)
-                    {
-                        if (i != 0)
-                        {
-                            sb.AppendLine();
-                            sb.AppendLine();
-                        }
-
-                        BuildErrorMessageFromException(sb, level + 1, aggregateException.InnerExceptions[i]);
-                    }
-                }
-            }
-            else if (ex.InnerException != null)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                sb.AppendFormat("{0}Inner Exception:{1}", indent, Environment.NewLine);
-                BuildErrorMessageFromException(sb, level + 1, ex.InnerException);
-            }
+//            if (ex is AggregateException)
+//            {
+//                AggregateException aggregateException = ((AggregateException)ex).Flatten();
+//
+//                if (aggregateException.InnerExceptions.Count == 1)
+//                {
+//                    sb.AppendLine();
+//                    sb.AppendLine();
+//
+//                    sb.AppendFormat("{0}Contained Exception:{1}", indent, Environment.NewLine);
+//                    BuildErrorMessageFromException(sb, level + 1, aggregateException.InnerException);
+//                }
+//                else
+//                {
+//                    sb.AppendLine();
+//                    sb.AppendLine();
+//
+//                    sb.AppendFormat("{0}Contained Exceptions:{1}", indent, Environment.NewLine);
+//                    for (int i = 0; i < aggregateException.InnerExceptions.Count; i++)
+//                    {
+//                        if (i != 0)
+//                        {
+//                            sb.AppendLine();
+//                            sb.AppendLine();
+//                        }
+//
+//                        BuildErrorMessageFromException(sb, level + 1, aggregateException.InnerExceptions[i]);
+//                    }
+//                }
+//            }
+//            else if (ex.InnerException != null)
+//            {
+//                sb.AppendLine();
+//                sb.AppendLine();
+//                sb.AppendFormat("{0}Inner Exception:{1}", indent, Environment.NewLine);
+//                BuildErrorMessageFromException(sb, level + 1, ex.InnerException);
+//            }
         }
 
         #endregion
@@ -2190,7 +2190,8 @@ namespace LibGit2Sharp.Core
                     directRefs.Add(name, new DirectReference(name, repository, remoteHead.Oid));
                 }
 
-                currentHead = IntPtr.Add(currentHead, IntPtr.Size);
+                //currentHead = IntPtr.Add(currentHead, IntPtr.Size);
+                currentHead =  new IntPtr(currentHead.ToInt64() + IntPtr.Size);
             }
 
             for (int i = 0; i < symRefs.Count; i++)
@@ -3141,7 +3142,7 @@ namespace LibGit2Sharp.Core
             return NativeMethods.git_tree_entry_type(entry);
         }
 
-        public static int git_tree_entrycount(GitObjectSafeHandle tree)
+        public static long git_tree_entrycount(GitObjectSafeHandle tree)
         {
             return (int)NativeMethods.git_tree_entrycount(tree);
         }
