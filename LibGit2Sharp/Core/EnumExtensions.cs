@@ -10,5 +10,10 @@ namespace LibGit2Sharp.Core
         {
             return entries.Any(enumInstance.HasFlag);
         }
+
+        public static bool HasFlag<T>(this Enum enumInstance, T entry)
+        {
+            return ((int)(object)enumInstance & (int)(object)entry) == (int)(object)(entry);
+        }
     }
 }

@@ -57,7 +57,7 @@ namespace LibGit2Sharp.Core
 
                 // Ordering matters. In the case of `A -> B -> commit`, we need to make sure B is rewritten
                 // before A.
-                foreach (var reference in refsToRewrite.OrderBy(ReferenceDepth))
+                foreach (var reference in refsToRewrite.OrderBy<Reference, int>(ReferenceDepth))
                 {
                     // TODO: Rewrite refs/notes/* properly
                     if (reference.CanonicalName.StartsWith("refs/notes/"))

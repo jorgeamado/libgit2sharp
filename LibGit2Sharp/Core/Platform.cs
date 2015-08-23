@@ -11,9 +11,15 @@ namespace LibGit2Sharp.Core
 
     internal static class Platform
     {
+        static bool is64Bit()
+        {
+            string pa = System.Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+            return ((System.String.IsNullOrEmpty(pa) || pa.Substring(0, 3) == "x86") ? false : true);
+        }
+
         public static string ProcessorArchitecture
         {
-            get { return Environment.Is64BitProcess ? "amd64" : "x86"; }
+            get { return  is64Bit() ? "amd64" : "x86"; }
         }
 
         public static OperatingSystemType OperatingSystem

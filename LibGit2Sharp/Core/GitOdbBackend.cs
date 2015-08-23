@@ -21,8 +21,9 @@ namespace LibGit2Sharp.Core
         /// </summary>
         private readonly IntPtr Odb;
 
+#if !UNITY_5
 #pragma warning restore 169
-
+#endif
         public read_callback Read;
         public read_prefix_callback ReadPrefix;
         public read_header_callback ReadHeader;

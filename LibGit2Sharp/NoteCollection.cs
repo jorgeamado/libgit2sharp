@@ -65,7 +65,7 @@ namespace LibGit2Sharp
         /// </summary>
         public virtual IEnumerable<string> Namespaces
         {
-            get { return NamespaceRefs.Select(UnCanonicalizeName); }
+            get { return NamespaceRefs.Select<string, string>(UnCanonicalizeName); }
         }
 
         internal IEnumerable<string> NamespaceRefs

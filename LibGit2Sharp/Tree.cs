@@ -16,7 +16,7 @@ namespace LibGit2Sharp
     {
         private readonly FilePath path;
 
-        private readonly ILazy<int> lazyCount;
+        private readonly ILazy<long> lazyCount;
 
         /// <summary>
         /// Needed for mocking purposes.
@@ -29,13 +29,13 @@ namespace LibGit2Sharp
         {
             this.path = path ?? "";
 
-            lazyCount = GitObjectLazyGroup.Singleton(repo, id, Proxy.git_tree_entrycount);
+            lazyCount = GitObjectLazyGroup.Singleton<long>(repo, id, Proxy.git_tree_entrycount);
         }
 
         /// <summary>
         /// Gets the number of <see cref="TreeEntry"/> immediately under this <see cref="Tree"/>.
         /// </summary>
-        public virtual int Count { get { return lazyCount.Value; } }
+        public virtual int Count { get { return (int)lazyCount.Value; } }
 
         /// <summary>
         /// Gets the <see cref="TreeEntry"/> pointed at by the <paramref name="relativePath"/> in this <see cref="Tree"/> instance.

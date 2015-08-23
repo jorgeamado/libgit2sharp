@@ -39,14 +39,14 @@ namespace LibGit2Sharp
             this.url = url;
 
             var commitIds = new SubmoduleLazyGroup(repo, name);
-            headCommitId = commitIds.AddLazy(Proxy.git_submodule_head_id);
-            indexCommitId = commitIds.AddLazy(Proxy.git_submodule_index_id);
-            workdirCommitId = commitIds.AddLazy(Proxy.git_submodule_wd_id);
+            headCommitId = commitIds.AddLazy<ObjectId>(Proxy.git_submodule_head_id);
+            indexCommitId = commitIds.AddLazy<ObjectId>(Proxy.git_submodule_index_id);
+            workdirCommitId = commitIds.AddLazy<ObjectId>(Proxy.git_submodule_wd_id);
 
             var rules = new SubmoduleLazyGroup(repo, name);
-            fetchRecurseSubmodulesRule = rules.AddLazy(Proxy.git_submodule_fetch_recurse_submodules);
-            ignoreRule = rules.AddLazy(Proxy.git_submodule_ignore);
-            updateRule = rules.AddLazy(Proxy.git_submodule_update_strategy);
+            fetchRecurseSubmodulesRule = rules.AddLazy<SubmoduleRecurse>(Proxy.git_submodule_fetch_recurse_submodules);
+            ignoreRule = rules.AddLazy<SubmoduleIgnore>(Proxy.git_submodule_ignore);
+            updateRule = rules.AddLazy<SubmoduleUpdate>(Proxy.git_submodule_update_strategy);
         }
 
         /// <summary>

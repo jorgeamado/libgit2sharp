@@ -689,7 +689,7 @@ namespace LibGit2Sharp
         {
             Ensure.ArgumentNotNullOrEmptyString(pattern, "pattern");
 
-            return Proxy.git_reference_foreach_glob(repo.Handle, pattern, LaxUtf8Marshaler.FromNative)
+            return Proxy.git_reference_foreach_glob<string>(repo.Handle, pattern, LaxUtf8Marshaler.FromNative)
                 .Select(n => this[n]);
         }
 

@@ -102,7 +102,8 @@ namespace LibGit2Sharp
                 return configPath;
             }
 
-            var gitConfigPath = Path.Combine(path.Native, ".git", "config");
+            var gitConfigPath = Path.Combine(path.Native, ".git");
+            gitConfigPath = Path.Combine(gitConfigPath, "config");
 
             if (File.Exists(gitConfigPath))
             {
@@ -730,7 +731,7 @@ namespace LibGit2Sharp
 
         private IEnumerable<ConfigurationEntry<string>> BuildConfigEntries()
         {
-            return Proxy.git_config_foreach(configHandle, BuildConfigEntry);
+            return Proxy.git_config_foreach<ConfigurationEntry<string>>(configHandle, BuildConfigEntry);
         }
 
         private static ConfigurationEntry<string> BuildConfigEntry(IntPtr entryPtr)

@@ -22,8 +22,8 @@ namespace LibGit2Sharp
         internal Blob(Repository repo, ObjectId id)
             : base(repo, id)
         {
-            lazySize = GitObjectLazyGroup.Singleton(repo, id, Proxy.git_blob_rawsize);
-            lazyIsBinary = GitObjectLazyGroup.Singleton(repo, id, Proxy.git_blob_is_binary);
+            lazySize = GitObjectLazyGroup.Singleton<long>(repo, id, Proxy.git_blob_rawsize);
+            lazyIsBinary = GitObjectLazyGroup.Singleton<bool>(repo, id, Proxy.git_blob_is_binary);
         }
 
         /// <summary>
